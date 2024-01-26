@@ -1,6 +1,7 @@
 package de.artus.calculator;
 
 
+import de.artus.calculator.objects.BracketObject;
 import de.artus.calculator.objects.MathObject;
 import de.artus.calculator.objects.Number;
 import de.artus.calculator.objects.operations.Addition;
@@ -37,5 +38,12 @@ public class LexerTest {
         String mathInput = "100+100";
         List<MathObject> tokens = Lexer.getTokensFromString(mathInput);
         Assert.assertEquals(new ArrayList<>(List.of(new Number(100), new Addition(), new Number(100))), tokens);
+    }
+
+    @Test
+    public void bracketTest() {
+        String mathInput = "2*(5+5)";
+        List<MathObject> tokens = Lexer.getTokensFromString(mathInput);
+        Assert.assertEquals(new ArrayList<>(List.of(new Number(2), new Multiplication(), new BracketObject(List.of(new Number(5), new Addition(), new Number(5))))), tokens);
     }
 }
